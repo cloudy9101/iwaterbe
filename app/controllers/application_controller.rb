@@ -3,11 +3,7 @@ class ApplicationController < ActionController::Base
   
   private
 
-  def signin
-    current_user
-  end
-
-  def current_user
-    @current_user ||= User.first
+  def current_resource_owner
+    User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
   end
 end

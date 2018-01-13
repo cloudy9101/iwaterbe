@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :signin
+  before_action :doorkeeper_authorize!
 
   def show
-    @user = current_user
+    @user = current_resource_owner
   end
 end

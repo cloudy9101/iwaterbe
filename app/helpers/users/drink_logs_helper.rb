@@ -1,0 +1,2 @@
+module Users::DrinkLogsHelper
+end
