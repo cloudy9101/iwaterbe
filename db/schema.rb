@@ -10,20 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180110132422) do
+ActiveRecord::Schema.define(version: 20180110135253) do
 
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "mobile"
+    t.string "password_digest"
     t.string "name"
     t.text "bio"
     t.integer "gender"
     t.integer "age"
     t.string "avatar"
+    t.integer "target_volumn_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email"
     t.index ["mobile"], name: "index_users_on_mobile"
+  end
+
+  create_table "users_drink_logs", force: :cascade do |t|
+    t.integer "user_id"
+    t.date "date"
+    t.datetime "time"
+    t.integer "volume"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "date"], name: "index_users_drink_logs_on_user_id_and_date"
   end
 
 end
