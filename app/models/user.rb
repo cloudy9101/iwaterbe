@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
 
+  DEFAULT_AVATAR = 'http://7xl5we.com1.z0.glb.clouddn.com/IMG_0204.JPG'
+
   validate :email_or_mobile_presence
   validates :email, :mobile, uniqueness: true, allow_nil: true
   validates :name, presence: true
@@ -21,6 +23,10 @@ class User < ApplicationRecord
 
   def target_volume_number
     self[:target_volume_number] || 3000
+  end
+
+  def avatar_or_default
+    avatar || DEFAULT_AVATAR
   end
 
   private
