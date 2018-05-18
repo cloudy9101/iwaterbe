@@ -56,3 +56,6 @@ node_modules/
 /yarn-error.log
 
 config/deploy
+
+# Ignore encrypted secrets key file.
+config/secrets.yml.key
