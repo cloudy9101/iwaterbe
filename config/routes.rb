@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   resources :users, only: :create do
     scope module: :users do
       collection do
-        resources :drink_logs, only: [:create]
+        resources :drink_logs, only: [:index, :create]
+        resources :monthly_logs, only: :index
       end
     end
   end

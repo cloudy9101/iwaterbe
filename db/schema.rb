@@ -12,9 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20180113101918) do
 
-  create_table "oauth_access_grants", force: :cascade do |t|
+  create_table "oauth_access_grants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "resource_owner_id", null: false
-    t.integer "application_id", null: false
+    t.bigint "application_id", null: false
     t.string "token", null: false
     t.integer "expires_in", null: false
     t.text "redirect_uri", null: false
@@ -25,9 +25,9 @@ ActiveRecord::Schema.define(version: 20180113101918) do
     t.index ["token"], name: "index_oauth_access_grants_on_token", unique: true
   end
 
-  create_table "oauth_access_tokens", force: :cascade do |t|
+  create_table "oauth_access_tokens", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "resource_owner_id"
-    t.integer "application_id"
+    t.bigint "application_id"
     t.string "token", null: false
     t.string "refresh_token"
     t.integer "expires_in"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20180113101918) do
     t.index ["token"], name: "index_oauth_access_tokens_on_token", unique: true
   end
 
-  create_table "oauth_applications", force: :cascade do |t|
+  create_table "oauth_applications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
     t.string "uid", null: false
     t.string "secret", null: false
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20180113101918) do
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "email"
     t.string "mobile"
     t.string "password_digest"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20180113101918) do
     t.index ["mobile"], name: "index_users_on_mobile"
   end
 
-  create_table "users_drink_logs", force: :cascade do |t|
+  create_table "users_drink_logs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "user_id"
     t.date "date"
     t.datetime "time"
@@ -78,4 +78,6 @@ ActiveRecord::Schema.define(version: 20180113101918) do
     t.index ["user_id", "date"], name: "index_users_drink_logs_on_user_id_and_date"
   end
 
+  add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
+  add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
 end
